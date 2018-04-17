@@ -3,19 +3,22 @@ from math import ceil
 import argparse
 import os.path as path
 
-im = Image.open('test.jpg')
-pix = im.load()
-startX = im.size[0] - 1
-startY = im.size[1] - 1
-msg_start = 11
-msg_bin = ""
+
 
 parser = argparse.ArgumentParser()
-parser.add_argument("fileName", help="Enter a filename")
+parser.add_argument("textfile", help="text file to encode")
+parser.add_argument("imagefile", help="input image")
+parser.add_argument("outputfile", help="name of output image")
 args = parser.parse_args()
-if path.isfile(args.fileName):
+if path.isfile(args.textfile) and path.isfile(args.imagefile):
 
-    file = open(args.fileName, "r")
+    im = Image.open(args.imagefile)
+    pix = im.load()
+    startX = im.size[0] - 1
+    startY = im.size[1] - 1
+    msg_start = 11
+    msg_bin = ""
+    file = open(args.textfile, "r")
 
     for line in file:
         for charater in line:
@@ -48,6 +51,6 @@ if path.isfile(args.fileName):
         pixel = (encoded_pixel[0], encoded_pixel[1], encoded_pixel[2])
 
         pix[startX - (i - (startX * int(i / startX))), startY - int(i / startX)] = pixel
-    im.save("foo_new.png")
+    im.save(args.outputfile + ".png")
 else:
     print("File doesn't exist!")
