@@ -9,7 +9,7 @@ Amin Soltani
 
 
 ## Usage
-``
+```
 usage: encode.py [-h] textfile imagefile outputfile
 
 positional arguments:
