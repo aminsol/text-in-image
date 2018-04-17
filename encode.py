@@ -3,8 +3,6 @@ from math import ceil
 import argparse
 import os.path as path
 
-
-
 parser = argparse.ArgumentParser()
 parser.add_argument("textfile", help="text file to encode")
 parser.add_argument("imagefile", help="input image")

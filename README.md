@@ -1,4 +1,4 @@
-# text-in-image
+# Text-in-Image
 
 encode and decode messages into and from png file
 
@@ -16,4 +16,14 @@ positional arguments:
   textfile    text file to encode
   imagefile   input image
   outputfile  name of output image
+```
+
+```
+usage: decode.py [-h] image
+
+positional arguments:
+  image       Input image to decode
+
+optional arguments:
+  -h, --help  show this help message and exit
 ```
