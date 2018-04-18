@@ -6,7 +6,7 @@ Amin Soltani
 
 * Encode content of a file into an image and export that as PNG.
 
-* Decode messages inside of a png file.
+* Decode input PNG file and display the hidden message in terminal.
 
 ## Usage
 
