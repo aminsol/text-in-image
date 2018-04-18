@@ -4,11 +4,11 @@ import argparse
 import os.path as path
 
 parser = argparse.ArgumentParser()
-parser.add_argument("image", help="Input image to decode")
+parser.add_argument("PNGimage", help="Input image to decode")
 args = parser.parse_args()
 
-if path.isfile(args.image):
-    im = Image.open(args.image, 'r')
+if path.isfile(args.PNGimage):
+    im = Image.open(args.PNGimage, 'r')
     pix = im.load()
     startX = im.size[0] - 1
     startY = im.size[1] - 1

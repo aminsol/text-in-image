@@ -1,14 +1,17 @@
 # Text-in-Image
 
-encode and decode messages into and from png file
+* Encode content of a file into an image and export that as PNG.
+* Decode messages inside of a png file.
 
 ## Team
 
 Amin Soltani
 
 
-
 ## Usage
+
+### Encoding
+
 ```
 usage: encode.py [-h] textfile imagefile outputfile
 
@@ -18,12 +21,11 @@ positional arguments:
   outputfile  name of output image
 ```
 
+### Decoding
+
 ```
 usage: decode.py [-h] image
 
 positional arguments:
-  image       Input image to decode
-
-optional arguments:
-  -h, --help  show this help message and exit
+  PNGimage       Input image to decode
 ```
