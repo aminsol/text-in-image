@@ -1,12 +1,12 @@
 # Text-in-Image
 
-* Encode content of a file into an image and export that as PNG.
-* Decode messages inside of a png file.
-
-## Team
-
 Amin Soltani
 
+## Description
+
+* Encode content of a file into an image and export that as PNG.
+
+* Decode messages inside of a png file.
 
 ## Usage
 
