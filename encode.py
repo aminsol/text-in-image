@@ -3,11 +3,14 @@ from math import ceil
 import argparse
 import os.path as path
 
+# Getting argumrnts from terminal
 parser = argparse.ArgumentParser()
 parser.add_argument("textfile", help="text file to encode")
 parser.add_argument("imagefile", help="input image")
 parser.add_argument("outputfile", help="name of output image")
 args = parser.parse_args()
+
+# check if image and text file exist
 if path.isfile(args.textfile) and path.isfile(args.imagefile):
 
     im = Image.open(args.imagefile)
@@ -18,6 +21,7 @@ if path.isfile(args.textfile) and path.isfile(args.imagefile):
     msg_bin = ""
     file = open(args.textfile, "r")
 
+    # Reading a file character by character
     for line in file:
         for charater in line:
             msg_bin = msg_bin + (bin(ord(charater))[2:].zfill(8))
@@ -26,6 +30,8 @@ if path.isfile(args.textfile) and path.isfile(args.imagefile):
 
     length = len(msg_bin)
     print(length)
+
+    # Encoding length of message
     for i in range(0, msg_start):
         pixel = pix[startX - i, startY]
         encoded_pixel = [pixel[0], pixel[1], pixel[2]]
@@ -38,14 +44,23 @@ if path.isfile(args.textfile) and path.isfile(args.imagefile):
 
         pix[startX - i, startY] = pixel
     print(len(msg_bin))
+
+    # Encoding message
     for i in range(msg_start, msg_start + ceil(length / 3)):
+
+        # Encoding into a pixel
+        # Y increase by one every time with hit a number dividable by number of X
         pixel = pix[startX - (i - (startX * int(i / startX))), startY - int(i / startX)]
+
+        # Turning tuple to array just so I can edit RBG separately.
         encoded_pixel = [pixel[0], pixel[1], pixel[2]]
         for j in range(0, 3):
             if (i - msg_start) * 3 + j == length:
                 break
             tmp = bin(pixel[j])[2:-1] + str(msg_bin[(i - msg_start) * 3 + j])
             encoded_pixel[j] = int(tmp, 2)
+
+        # Turning the array back to tuple
         pixel = (encoded_pixel[0], encoded_pixel[1], encoded_pixel[2])
 
         pix[startX - (i - (startX * int(i / startX))), startY - int(i / startX)] = pixel
