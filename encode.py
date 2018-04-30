@@ -15,6 +15,7 @@ if path.isfile(args.textfile) and path.isfile(args.imagefile):
 
     im = Image.open(args.imagefile)
     pix = im.load()
+    im = im.convert('RGB')
     startX = im.size[0] - 1
     startY = im.size[1] - 1
     msg_start = 11
@@ -33,7 +34,7 @@ if path.isfile(args.textfile) and path.isfile(args.imagefile):
 
     # Encoding length of message
     for i in range(0, msg_start):
-        pixel = pix[startX - i, startY]
+        pixel = im.getpixel((startX - i, startY))
         encoded_pixel = [pixel[0], pixel[1], pixel[2]]
         for j in range(0, 3):
             if j == 2 and i == 10:
@@ -42,16 +43,23 @@ if path.isfile(args.textfile) and path.isfile(args.imagefile):
             encoded_pixel[j] = int(tmp, 2)
         pixel = (encoded_pixel[0], encoded_pixel[1], encoded_pixel[2])
 
-        pix[startX - i, startY] = pixel
+        im.putpixel((startX - i, startY), pixel)
     print(len(msg_bin))
 
     # Encoding message
+    X = startX - msg_start + 1
+    Y = startY
     for i in range(msg_start, msg_start + ceil(length / 3)):
 
         # Encoding into a pixel
         # Y increase by one every time with hit a number dividable by number of X
-        pixel = pix[startX - (i - (startX * int(i / startX))), startY - int(i / startX)]
+        if X == 0:
+            Y -= 1
+            X = startX
+        else:
+            X -= 1
 
+        pixel = im.getpixel((X, Y))
         # Turning tuple to array just so I can edit RBG separately.
         encoded_pixel = [pixel[0], pixel[1], pixel[2]]
         for j in range(0, 3):
@@ -63,7 +71,7 @@ if path.isfile(args.textfile) and path.isfile(args.imagefile):
         # Turning the array back to tuple
         pixel = (encoded_pixel[0], encoded_pixel[1], encoded_pixel[2])
 
-        pix[startX - (i - (startX * int(i / startX))), startY - int(i / startX)] = pixel
+        im.putpixel((X, Y), pixel)
     im.save(args.outputfile + ".png")
 else:
     print("File doesn't exist!")
